@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/reflux/refluxjs#readme"
-
-    >reflux (v6.4.1)</a>
+    <a href="https://github.com/reflux/refluxjs#readme">reflux (v6.4.1)</a>
 </h1>
 <h4>A simple library for uni-directional dataflow application architecture inspired by ReactJS Flux</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.reflux">module reflux</a><ol>
 
@@ -2430,7 +2423,7 @@
 		if (this.stores) {
 			this.__storeunsubscribes__ = this.__storeunsubscribes__ || [];
 			var sS = this.setState.bind(this);
-			// this handles the triggering of a store, checking what&#x27;s updated if proto.storeKeys is utilized
+			// this handles the triggering of a store, checking what's updated if proto.storeKeys is utilized
 			var onStoreTrigger = function(obj){
 				var updateObj = filterByStoreKeys(this.storeKeys, obj);
 				if (updateObj) {
@@ -2438,10 +2431,10 @@
 				}
 			}.bind(this);
 			// for each store in this.stores...
-			for (var i = 0, ii = this.stores.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.stores.length; i &lt; ii; i++) {
 				var str = this.stores[i];
-				// if&#x27;s a function then we know it&#x27;s a class getting passed, not an instance
-				if (typeof str === &#x27;function&#x27;) {
+				// if's a function then we know it's a class getting passed, not an instance
+				if (typeof str === 'function') {
 					var storeId = str.id;
 					// if there is NOT a .singleton property on the store then this store has not been initialized yet, so do so
 					if (!str.singleton) {
@@ -2450,15 +2443,15 @@
 							Reflux.stores[storeId] = str.singleton;
 						}
 					}
-					// before we weren&#x27;t sure if we were working with an instance or class, so now we know an instance is created set it
-					// to the variables we were using so that we can just continue on knowing it&#x27;s the instance we&#x27;re working with
+					// before we weren't sure if we were working with an instance or class, so now we know an instance is created set it
+					// to the variables we were using so that we can just continue on knowing it's the instance we're working with
 					this.stores[i] = str = str.singleton;
 					// the instance should have an .id property as well if the class does, so set that here
 					str.id = storeId;
 					// if there is an id and there is a global state property for this store then merge
 					// the properties from that global state into the default state of the store AND then
 					// set the global state to that new state (since it may have previously been partial)
-					if (storeId &#x26;&#x26; Reflux.GlobalState[storeId]) {
+					if (storeId &amp;&amp; Reflux.GlobalState[storeId]) {
 						for (var key in Reflux.GlobalState[storeId]) {
 							str.state[key] = Reflux.GlobalState[storeId][key];
 						}
@@ -2469,7 +2462,7 @@
 					}
 					// if no id, then no messing with global state
 				}
-				// listen/subscribe for the &#x22;.trigger()&#x22; in the store, and track the unsubscribes so that we can unsubscribe on unmount
+				// listen/subscribe for the ".trigger()" in the store, and track the unsubscribes so that we can unsubscribe on unmount
 				if (!Reflux.serverMode) {
 					this.__storeunsubscribes__.push(str.listen(onStoreTrigger));
 				}
@@ -2486,7 +2479,7 @@
 		// if there are mappings that were delayed, do them now
 		var dmaps = this.__delayedmaps__;
 		if (dmaps) {
-			for (var j=0,jj=dmaps.length; j&#x3c;jj; j++) {
+			for (var j=0,jj=dmaps.length; j&lt;jj; j++) {
 				dmaps[j].func( dmaps[j].state );
 			}
 		}
@@ -2506,7 +2499,7 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">Component.prototype.componentWillUnmount = function () {
 		if (this.__storeunsubscribes__) {
-			for (var i = 0, ii = this.__storeunsubscribes__.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.__storeunsubscribes__.length; i &lt; ii; i++) {
 				this.__storeunsubscribes__[i]();
 			}
 		}
@@ -2527,7 +2520,7 @@
     <li>description and source-code<pre class="apidocCodePre">Component.prototype.mapStoreToState = function (store, filterFunc)
 	{
 		// make sure we have a proper singleton instance to work with
-		if (typeof store === &#x27;function&#x27;) {
+		if (typeof store === 'function') {
 			if (store.singleton) {
 				store = store.singleton;
 			} else {
@@ -2583,11 +2576,11 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fetchInitialState(listenable, defaultCallback) {
-    defaultCallback = defaultCallback &#x26;&#x26; this[defaultCallback] || defaultCallback;
+    defaultCallback = defaultCallback &amp;&amp; this[defaultCallback] || defaultCallback;
     var me = this;
-    if (_.isFunction(defaultCallback) &#x26;&#x26; _.isFunction(listenable.getInitialState)) {
+    if (_.isFunction(defaultCallback) &amp;&amp; _.isFunction(listenable.getInitialState)) {
         var data = listenable.getInitialState();
-        if (data &#x26;&#x26; _.isFunction(data.then)) {
+        if (data &amp;&amp; _.isFunction(data.then)) {
             data.then(function () {
                 defaultCallback.apply(me, arguments);
             });
@@ -2613,11 +2606,11 @@
         j,
         listener,
         listenables;
-    for (; i &#x3c; (this.subscriptions || []).length; ++i) {
+    for (; i &lt; (this.subscriptions || []).length; ++i) {
         listenables = [].concat(this.subscriptions[i].listenable);
-        for (j = 0; j &#x3c; listenables.length; j++) {
+        for (j = 0; j &lt; listenables.length; j++) {
             listener = listenables[j];
-            if (listener === listenable || listener.hasListener &#x26;&#x26; listener.hasListener(listenable)) {
+            if (listener === listenable || listener.hasListener &amp;&amp; listener.hasListener(listenable)) {
                 return true;
             }
         }
@@ -2637,7 +2630,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">ListenerMethods.joinConcat = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -2650,10 +2643,10 @@
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -2675,7 +2668,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">ListenerMethods.joinLeading = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -2688,10 +2681,10 @@
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -2713,7 +2706,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">ListenerMethods.joinStrict = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -2726,10 +2719,10 @@
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -2751,7 +2744,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">ListenerMethods.joinTrailing = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -2764,10 +2757,10 @@
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -2798,7 +2791,7 @@
     desub = listenable.listen(this[callback] || callback, this);
     unsubscriber = function unsubscriber() {
         var index = subs.indexOf(subscriptionobj);
-        _.throwIf(index === -1, &#x22;Tried to remove listen already gone from subscriptions list!&#x22;);
+        _.throwIf(index === -1, "Tried to remove listen already gone from subscriptions list!");
         subs.splice(index, 1);
         desub();
     };
@@ -2827,7 +2820,7 @@
         var cbname = _.callbackName(key),
             localname = this[cbname] ? cbname : this[key] ? key : undefined;
         if (localname) {
-            this.listenTo(allListenables[key], localname, this[cbname + &#x22;Default&#x22;] || this[localname + &#x22;Default&#x22;] || localname);
+            this.listenTo(allListenables[key], localname, this[cbname + "Default"] || this[localname + "Default"] || localname);
         }
     }
 }</pre></li>
@@ -2847,11 +2840,11 @@
     var sub,
         i = 0,
         subs = this.subscriptions || [];
-    for (; i &#x3c; subs.length; i++) {
+    for (; i &lt; subs.length; i++) {
         sub = subs[i];
         if (sub.listenable === listenable) {
             sub.stop();
-            _.throwIf(subs.indexOf(sub) !== -1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+            _.throwIf(subs.indexOf(sub) !== -1, "Failed to remove listen from subscriptions list!");
             return true;
         }
     }
@@ -2874,7 +2867,7 @@
         subs = this.subscriptions || [];
     while (remaining = subs.length) {
         subs[0].stop();
-        _.throwIf(subs.length !== remaining - 1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+        _.throwIf(subs.length !== remaining - 1, "Failed to remove listen from subscriptions list!");
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -2891,13 +2884,13 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function validateListening(listenable) {
     if (listenable === this) {
-        return &#x22;Listener is not able to listen to itself&#x22;;
+        return "Listener is not able to listen to itself";
     }
     if (!_.isFunction(listenable.listen)) {
-        return listenable + &#x22; is missing a listen method&#x22;;
+        return listenable + " is missing a listen method";
     }
-    if (listenable.hasListener &#x26;&#x26; listenable.hasListener(this)) {
-        return &#x22;Listener cannot listen to this listenable because of circular loop&#x22;;
+    if (listenable.hasListener &amp;&amp; listenable.hasListener(this)) {
+        return "Listener cannot listen to this listenable because of circular loop";
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -3072,7 +3065,7 @@
 		if (this.stores) {
 			this.__storeunsubscribes__ = this.__storeunsubscribes__ || [];
 			var sS = this.setState.bind(this);
-			// this handles the triggering of a store, checking what&#x27;s updated if proto.storeKeys is utilized
+			// this handles the triggering of a store, checking what's updated if proto.storeKeys is utilized
 			var onStoreTrigger = function(obj){
 				var updateObj = filterByStoreKeys(this.storeKeys, obj);
 				if (updateObj) {
@@ -3080,10 +3073,10 @@
 				}
 			}.bind(this);
 			// for each store in this.stores...
-			for (var i = 0, ii = this.stores.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.stores.length; i &lt; ii; i++) {
 				var str = this.stores[i];
-				// if&#x27;s a function then we know it&#x27;s a class getting passed, not an instance
-				if (typeof str === &#x27;function&#x27;) {
+				// if's a function then we know it's a class getting passed, not an instance
+				if (typeof str === 'function') {
 					var storeId = str.id;
 					// if there is NOT a .singleton property on the store then this store has not been initialized yet, so do so
 					if (!str.singleton) {
@@ -3092,15 +3085,15 @@
 							Reflux.stores[storeId] = str.singleton;
 						}
 					}
-					// before we weren&#x27;t sure if we were working with an instance or class, so now we know an instance is created set it
-					// to the variables we were using so that we can just continue on knowing it&#x27;s the instance we&#x27;re working with
+					// before we weren't sure if we were working with an instance or class, so now we know an instance is created set it
+					// to the variables we were using so that we can just continue on knowing it's the instance we're working with
 					this.stores[i] = str = str.singleton;
 					// the instance should have an .id property as well if the class does, so set that here
 					str.id = storeId;
 					// if there is an id and there is a global state property for this store then merge
 					// the properties from that global state into the default state of the store AND then
 					// set the global state to that new state (since it may have previously been partial)
-					if (storeId &#x26;&#x26; Reflux.GlobalState[storeId]) {
+					if (storeId &amp;&amp; Reflux.GlobalState[storeId]) {
 						for (var key in Reflux.GlobalState[storeId]) {
 							str.state[key] = Reflux.GlobalState[storeId][key];
 						}
@@ -3111,7 +3104,7 @@
 					}
 					// if no id, then no messing with global state
 				}
-				// listen/subscribe for the &#x22;.trigger()&#x22; in the store, and track the unsubscribes so that we can unsubscribe on unmount
+				// listen/subscribe for the ".trigger()" in the store, and track the unsubscribes so that we can unsubscribe on unmount
 				if (!Reflux.serverMode) {
 					this.__storeunsubscribes__.push(str.listen(onStoreTrigger));
 				}
@@ -3128,7 +3121,7 @@
 		// if there are mappings that were delayed, do them now
 		var dmaps = this.__delayedmaps__;
 		if (dmaps) {
-			for (var j=0,jj=dmaps.length; j&#x3c;jj; j++) {
+			for (var j=0,jj=dmaps.length; j&lt;jj; j++) {
 				dmaps[j].func( dmaps[j].state );
 			}
 		}
@@ -3148,7 +3141,7 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">PureComponent.prototype.componentWillUnmount = function () {
 		if (this.__storeunsubscribes__) {
-			for (var i = 0, ii = this.__storeunsubscribes__.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.__storeunsubscribes__.length; i &lt; ii; i++) {
 				this.__storeunsubscribes__[i]();
 			}
 		}
@@ -3169,7 +3162,7 @@
     <li>description and source-code<pre class="apidocCodePre">PureComponent.prototype.mapStoreToState = function (store, filterFunc)
 	{
 		// make sure we have a proper singleton instance to work with
-		if (typeof store === &#x27;function&#x27;) {
+		if (typeof store === 'function') {
 			if (store.singleton) {
 				store = store.singleton;
 			} else {
@@ -3225,7 +3218,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">Store = function () {
-		// extending doesn&#x27;t really work well here, so instead we create an internal instance
+		// extending doesn't really work well here, so instead we create an internal instance
 		// and just loop through its properties/methods and make a getter/setter for each
 		// that will actually be getting and setting on that internal instance.
 		this.__store__ = Reflux.createStore();
@@ -3258,11 +3251,11 @@
 		for (var key in obj) {
 			this.state[key] = obj[key];
 		}
-		// if there&#x27;s an id (i.e. it&#x27;s being tracked by the global state) then make sure to update the global state
+		// if there's an id (i.e. it's being tracked by the global state) then make sure to update the global state
 		if (this.id) {
 			Reflux.GlobalState[this.id] = this.state;
 		}
-		// trigger, because any component it&#x27;s attached to is listening and will merge the store state into its own on a store trigger
+		// trigger, because any component it's attached to is listening and will merge the store state into its own on a store trigger
 		this.trigger(obj);
 	}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -3332,7 +3325,7 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function useKeep() {
-	var bool = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : true;
+	var bool = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : true;
 
 	use = bool;
 }</pre></li>
@@ -3352,7 +3345,7 @@
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -3370,7 +3363,7 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">connect = function (listenable, key) {
 
-    _.throwIf(typeof(key) === &#x27;undefined&#x27;, &#x27;Reflux.connect() requires a key.&#x27;);
+    _.throwIf(typeof(key) === 'undefined', 'Reflux.connect() requires a key.');
 
     return {
         getInitialState: function() {
@@ -3406,7 +3399,7 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">connectFilter = function (listenable, key, filterFunc) {
 
-    _.throwIf(_.isFunction(key), &#x27;Reflux.connectFilter() requires a key.&#x27;);
+    _.throwIf(_.isFunction(key), 'Reflux.connectFilter() requires a key.');
 
     return {
         getInitialState: function() {
@@ -3416,7 +3409,7 @@
 
             // Filter initial payload from store.
             var result = filterFunc.call(this, listenable.getInitialState());
-            if (typeof(result) !== &#x27;undefined&#x27;) {
+            if (typeof(result) !== 'undefined') {
                 return _.object([key], [result]);
             } else {
                 return {};
@@ -3455,34 +3448,34 @@
     }
 
     for (var a in ActionMethods) {
-        if (!allowed[a] &#x26;&#x26; PublisherMethods[a]) {
-            throw new Error(&#x22;Cannot override API method &#x22; + a + &#x22; in Reflux.ActionMethods. Use another method name or override it
- on Reflux.PublisherMethods instead.&#x22;);
+        if (!allowed[a] &amp;&amp; PublisherMethods[a]) {
+            throw new Error("Cannot override API method " + a + " in Reflux.ActionMethods. Use another method name or override it
+ on Reflux.PublisherMethods instead.");
         }
     }
 
     for (var d in definition) {
-        if (!allowed[d] &#x26;&#x26; PublisherMethods[d]) {
-            throw new Error(&#x22;Cannot override API method &#x22; + d + &#x22; in action creation. Use another method name or override it on
-Reflux.PublisherMethods instead.&#x22;);
+        if (!allowed[d] &amp;&amp; PublisherMethods[d]) {
+            throw new Error("Cannot override API method " + d + " in action creation. Use another method name or override it on
+Reflux.PublisherMethods instead.");
         }
     }
 
     definition.children = definition.children || [];
     if (definition.asyncResult) {
-        definition.children = definition.children.concat([&#x22;completed&#x22;, &#x22;failed&#x22;]);
+        definition.children = definition.children.concat(["completed", "failed"]);
     }
 
     var i = 0,
         childActions = {};
-    for (; i &#x3c; definition.children.length; i++) {
+    for (; i &lt; definition.children.length; i++) {
         var chDef = definition.children[i];
-        var chName = typeof chDef === &#x22;string&#x22; ? chDef : chDef.actionName;
+        var chName = typeof chDef === "string" ? chDef : chDef.actionName;
         childActions[chName] = createAction(chDef);
     }
 
     var context = _.extend({
-        eventLabel: &#x22;action&#x22;,
+        eventLabel: "action",
         emitter: new _.EventEmitter(),
         _isAction: true
     }, PublisherMethods, ActionMethods, definition);
@@ -3493,8 +3486,8 @@ Reflux.PublisherMethods instead.&#x22;);
 </span>        for (var ignore in functor.childActions) {
             hasChildActions = true;break;
         }
-        var async = !functor.sync &#x26;&#x26; typeof functor.sync !== &#x22;undefined&#x22; || hasChildActions;
-        var triggerType = async ? &#x22;triggerAsync&#x22; : &#x22;trigger&#x22;;
+        var async = !functor.sync &amp;&amp; typeof functor.sync !== "undefined" || hasChildActions;
+        var triggerType = async ? "triggerAsync" : "trigger";
         return functor[triggerType].apply(functor, arguments);
     };
 
@@ -3556,9 +3549,9 @@ There is also a convenience function for creating multiple actions.
 
 ```javascript
 var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
-    &#x22;statusUpdate&#x22;,
-    &#x22;statusEdited&#x22;,
-    &#x22;statusAdded&#x22;
+    "statusUpdate",
+    "statusEdited",
+    "statusAdded"
 ]);
 
 // Actions object now contains the actions
@@ -3580,16 +3573,16 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
     definition = definition || {};
 
     for (var a in StoreMethods) {
-        if (!allowed[a] &#x26;&#x26; (PublisherMethods[a] || ListenerMethods[a])) {
-            throw new Error(&#x22;Cannot override API method &#x22; + a + &#x22; in Reflux.StoreMethods. Use another method name or override it
- on Reflux.PublisherMethods / Reflux.ListenerMethods instead.&#x22;);
+        if (!allowed[a] &amp;&amp; (PublisherMethods[a] || ListenerMethods[a])) {
+            throw new Error("Cannot override API method " + a + " in Reflux.StoreMethods. Use another method name or override it
+ on Reflux.PublisherMethods / Reflux.ListenerMethods instead.");
         }
     }
 
     for (var d in definition) {
-        if (!allowed[d] &#x26;&#x26; (PublisherMethods[d] || ListenerMethods[d])) {
-            throw new Error(&#x22;Cannot override API method &#x22; + d + &#x22; in store creation. Use another method name or override it on Reflux
-.PublisherMethods / Reflux.ListenerMethods instead.&#x22;);
+        if (!allowed[d] &amp;&amp; (PublisherMethods[d] || ListenerMethods[d])) {
+            throw new Error("Cannot override API method " + d + " in store creation. Use another method name or override it on Reflux
+.PublisherMethods / Reflux.ListenerMethods instead.");
         }
     }
 
@@ -3600,14 +3593,14 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
             arr;
         this.subscriptions = [];
         this.emitter = new _.EventEmitter();
-        this.eventLabel = &#x22;change&#x22;;
+        this.eventLabel = "change";
         (0, _bindMethods.bindMethods)(this, definition);
-        if (this.init &#x26;&#x26; _.isFunction(this.init)) {
+        if (this.init &amp;&amp; _.isFunction(this.init)) {
             this.init();
         }
         if (this.listenables) {
             arr = [].concat(this.listenables);
-            for (; i &#x3c; arr.length; i++) {
+            for (; i &lt; arr.length; i++) {
                 this.listenToMany(arr[i]);
             }
         }
@@ -3644,9 +3637,9 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 		return;
 	}
 	
-	// if Reflux and React aren&#x27;t present then ignore, wait until they are properly present
-	// also ignore if it&#x27;s been called before UNLESS there&#x27;s manual extending happening
-	if (!_react || !_extend || (_defined &#x26;&#x26; !extend)) {
+	// if Reflux and React aren't present then ignore, wait until they are properly present
+	// also ignore if it's been called before UNLESS there's manual extending happening
+	if (!_react || !_extend || (_defined &amp;&amp; !extend)) {
 		return;
 	}
 	
@@ -3658,9 +3651,9 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 	 * React.Component. Then you may hook any Reflux store that has a
 	 * `this.state` property containing its state values to the component
 	 * via `this.store` or an Array of Reflux stores via `this.stores` in
-	 * the component&#x27;s constructor (similar to how you assign initial state
+	 * the component's constructor (similar to how you assign initial state
 	 * in the constructor in ES6 style React). The default values of the
-	 * stores will automatically reflect in the component&#x27;s state, and any
+	 * stores will automatically reflect in the component's state, and any
 	 * further `trigger` calls from that store will update properties passed
 	 * in the trigger into the component automatically.
 	 */
@@ -3698,7 +3691,7 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 		if (this.stores) {
 			this.__storeunsubscribes__ = this.__storeunsubscribes__ || [];
 			var sS = this.setState.bind(this);
-			// this handles the triggering of a store, checking what&#x27;s updated if proto.storeKeys is utilized
+			// this handles the triggering of a store, checking what's updated if proto.storeKeys is utilized
 			var onStoreTrigger = function(obj){
 				var updateObj = filterByStoreKeys(this.storeKeys, obj);
 				if (updateObj) {
@@ -3706,10 +3699,10 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 				}
 			}.bind(this);
 			// for each store in this.stores...
-			for (var i = 0, ii = this.stores.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.stores.length; i &lt; ii; i++) {
 				var str = this.stores[i];
-				// if&#x27;s a function then we know it&#x27;s a class getting passed, not an instance
-				if (typeof str === &#x27;function&#x27;) {
+				// if's a function then we know it's a class getting passed, not an instance
+				if (typeof str === 'function') {
 					var storeId = str.id;
 					// if there is NOT a .singleton property on the store then this store has not been initialized yet, so do so
 					if (!str.singleton) {
@@ -3718,8 +3711,8 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 							Reflux.stores[storeId] = str.singleton;
 						}
 					}
-					// before we weren&#x27;t sure if we were working with an instance or class, so now we know an instance is created set it
-					// to the variables we were using so that we can just continue on knowing it&#x27;s the instance we&#x27;re working with
+					// before we weren't sure if we were working with an instance or class, so now we know an instance is created set it
+					// to the variables we were using so that we can just continue on knowing it's the instance we're working with
 					this.stores[i] = str = str.singleton;
 					// the instance should have an .id property as well if the class does, so set that here
 					str.id = storeId;
@@ -3731,13 +3724,13 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 	}
 };
 
-// first try to see if there&#x27;s a global React var and use it
-if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
+// first try to see if there's a global React var and use it
+if (typeof React !== 'undefined' &amp;&amp; React) {
 	Reflux.<span class="apidocCodeKeywordSpan">defineReact</span>(React);
-// otherwise we&#x27;re gonna resort to &#x27;try&#x27; stuff in case of other environments
+// otherwise we're gonna resort to 'try' stuff in case of other environments
 } else {
 	try {
-		var R = require(&#x22;react&#x22;); // we ignore this in browserify manually (see grunt file), so it&#x27;s more of a doublecheck
+		var R = require("react"); // we ignore this in browserify manually (see grunt file), so it's more of a doublecheck
  for in node
 		Reflux.defineReact(R);
 	} catch (e) {}
@@ -3771,16 +3764,16 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">initStore = function (str) {
 		var storeId = str.id;
-		// if they&#x27;re initializing something twice then we&#x27;re done already, return it
+		// if they're initializing something twice then we're done already, return it
 		if (str.singleton) {
 			return str.singleton;
 		}
-		// if no id then it&#x27;s easy: just make new instance and set to singleton
+		// if no id then it's easy: just make new instance and set to singleton
 		if (!storeId) {
 			str.singleton = new str();
 			return str.singleton;
 		}
-		// create the singleton and assign it to the class&#x27;s singleton static property
+		// create the singleton and assign it to the class's singleton static property
 		var inst = str.singleton = new str();
 		// store it on the Reflux.stores array to be accessible later
 		Reflux.stores[storeId] = inst;
@@ -3814,16 +3807,16 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">initializeGlobalStore = function (str) {
 		var storeId = str.id;
-		// if they&#x27;re initializing something twice then we&#x27;re done already, return it
+		// if they're initializing something twice then we're done already, return it
 		if (str.singleton) {
 			return str.singleton;
 		}
-		// if no id then it&#x27;s easy: just make new instance and set to singleton
+		// if no id then it's easy: just make new instance and set to singleton
 		if (!storeId) {
 			str.singleton = new str();
 			return str.singleton;
 		}
-		// create the singleton and assign it to the class&#x27;s singleton static property
+		// create the singleton and assign it to the class's singleton static property
 		var inst = str.singleton = new str();
 		// store it on the Reflux.stores array to be accessible later
 		Reflux.stores[storeId] = inst;
@@ -3859,7 +3852,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -3879,7 +3872,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -3899,7 +3892,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -3919,7 +3912,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -3937,26 +3930,26 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">karma_conf = function (config) {
     config.set({
-        logLevel: &#x27;LOG_DEBUG&#x27;,
+        logLevel: 'LOG_DEBUG',
 
-        reporters: [&#x27;spec&#x27;],
+        reporters: ['spec'],
 
         singleRun : true,
         autoWatch : false,
 
         frameworks: [
-            &#x27;mocha&#x27;,
-            &#x27;browserify&#x27;
+            'mocha',
+            'browserify'
         ],
 
         files: [
-            &#x27;test/shims/phantomjs-shims.js&#x27;,
-            &#x27;test/*.spec.js&#x27;
+            'test/shims/phantomjs-shims.js',
+            'test/*.spec.js'
         ],
 
         preprocessors: {
-            &#x27;test/shims/phantomjs-shims.js&#x27;: [&#x27;browserify&#x27;],
-            &#x27;test/*.spec.js&#x27;: [&#x27;browserify&#x27;]
+            'test/shims/phantomjs-shims.js': ['browserify'],
+            'test/*.spec.js': ['browserify']
         },
 
         browserify: {
@@ -3986,7 +3979,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
             for(var m in ListenerMethods){
                 if (this[m] !== ListenerMethods[m]){
                     if (this[m]){
-                        throw &#x22;Can&#x27;t have other property &#x27;&#x22;+m+&#x22;&#x27; when using Reflux.listenTo!&#x22;;
+                        throw "Can't have other property '"+m+"' when using Reflux.listenTo!";
                     }
                     this[m] = ListenerMethods[m];
                 }
@@ -4006,13 +3999,13 @@ class StatusStore extends Reflux.Store
 constructor()
 {
     super();
-    this.state = {flag:&#x27;OFFLINE&#x27;}; // &#x3c;- set store&#x27;s default state much like in React
+    this.state = {flag:'OFFLINE'}; // &lt;- set store's default state much like in React
     this.<span class="apidocCodeKeywordSpan">listenTo</span>(statusUpdate, this.onStatusUpdate); // listen to the statusUpdate action
 }
 
 onStatusUpdate(status)
 {
-    var newFlag = status ? &#x27;ONLINE&#x27; : &#x27;OFFLINE&#x27;;
+    var newFlag = status ? 'ONLINE' : 'OFFLINE';
     this.setState({flag:newFlag});
 }
 ...</pre></li>
@@ -4037,7 +4030,7 @@ onStatusUpdate(status)
             for(var m in ListenerMethods){
                 if (this[m] !== ListenerMethods[m]){
                     if (this[m]){
-                        throw &#x22;Can&#x27;t have other property &#x27;&#x22;+m+&#x22;&#x27; when using Reflux.listenToMany!&#x22;;
+                        throw "Can't have other property '"+m+"' when using Reflux.listenToMany!";
                     }
                     this[m] = ListenerMethods[m];
                 }
@@ -4151,7 +4144,7 @@ onStatusUpdate(status)
     , args
     , i;
 
-  if (&#x27;function&#x27; === typeof listeners.fn) {
+  if ('function' === typeof listeners.fn) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
@@ -4163,7 +4156,7 @@ onStatusUpdate(status)
       case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
     }
 
-    for (i = 1, args = new Array(len -1); i &#x3c; len; i++) {
+    for (i = 1, args = new Array(len -1); i &lt; len; i++) {
       args[i - 1] = arguments[i];
     }
 
@@ -4172,7 +4165,7 @@ onStatusUpdate(status)
     var length = listeners.length
       , j;
 
-    for (i = 0; i &#x3c; length; i++) {
+    for (i = 0; i &lt; length; i++) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
@@ -4180,7 +4173,7 @@ onStatusUpdate(status)
         case 2: listeners[i].fn.call(listeners[i].context, a1); break;
         case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
         default:
-          if (!args) for (j = 1, args = new Array(len -1); j &#x3c; len; j++) {
+          if (!args) for (j = 1, args = new Array(len -1); j &lt; len; j++) {
             args[j - 1] = arguments[j];
           }
 
@@ -4234,13 +4227,13 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function listeners(event, exists) {
   var evt = prefix ? prefix + event : event
-    , available = this._events &#x26;&#x26; this._events[evt];
+    , available = this._events &amp;&amp; this._events[evt];
 
   if (exists) return !!available;
   if (!available) return [];
   if (available.fn) return [available.fn];
 
-  for (var i = 0, l = available.length, ee = new Array(l); i &#x3c; l; i++) {
+  for (var i = 0, l = available.length, ee = new Array(l); i &lt; l; i++) {
     ee[i] = available[i].fn;
   }
 
@@ -4344,17 +4337,17 @@ onStatusUpdate(status)
     if (listeners.fn) {
       if (
            listeners.fn !== fn
-        || (once &#x26;&#x26; !listeners.once)
-        || (context &#x26;&#x26; listeners.context !== context)
+        || (once &amp;&amp; !listeners.once)
+        || (context &amp;&amp; listeners.context !== context)
       ) {
         events.push(listeners);
       }
     } else {
-      for (var i = 0, length = listeners.length; i &#x3c; length; i++) {
+      for (var i = 0, length = listeners.length; i &lt; length; i++) {
         if (
              listeners[i].fn !== fn
-          || (once &#x26;&#x26; !listeners[i].once)
-          || (context &#x26;&#x26; listeners[i].context !== context)
+          || (once &amp;&amp; !listeners[i].once)
+          || (context &amp;&amp; listeners[i].context !== context)
         ) {
           events.push(listeners[i]);
         }
@@ -4401,7 +4394,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function callbackName(string, prefix) {
-    prefix = prefix || &#x22;on&#x22;;
+    prefix = prefix || "on";
     return prefix + exports.capitalize(string);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -4436,12 +4429,12 @@ onStatusUpdate(status)
         return obj;
     }
     var source, keys, prop;
-    for (var i = 1, length = arguments.length; i &#x3c; length; i++) {
+    for (var i = 1, length = arguments.length; i &lt; length; i++) {
         source = arguments[i];
         keys = Object.keys(source);
-        for (var j = 0; j &#x3c; keys.length; j++) {
+        for (var j = 0; j &lt; keys.length; j++) {
             prop = keys[j];
-            if (Object.getOwnPropertyDescriptor &#x26;&#x26; Object.defineProperty) {
+            if (Object.getOwnPropertyDescriptor &amp;&amp; Object.defineProperty) {
                 var propertyDescriptor = Object.getOwnPropertyDescriptor(source, prop);
                 Object.defineProperty(obj, prop, propertyDescriptor);
             } else {
@@ -4464,10 +4457,10 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">utils.inherits = function (subClass, superClass) {
-	if (typeof superClass !== &#x22;function&#x22; &#x26;&#x26; superClass !== null) {
-		throw new TypeError(&#x22;Super expression must either be null or a function, not &#x22; + typeof superClass);
+	if (typeof superClass !== "function" &amp;&amp; superClass !== null) {
+		throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
 	}
-	subClass.prototype = Object.create(superClass &#x26;&#x26; superClass.prototype, {
+	subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, {
 		constructor: {
 			value: subClass,
 			enumerable: false,
@@ -4497,8 +4490,8 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isArguments(value) {
-    return (typeof value === &#x22;undefined&#x22; ? &#x22;undefined&#x22; : _typeof(value)) === &#x22;object&#x22; &#x26;&#x26; &#x22;callee&#x22; in value &#x26;&#x26; typeof value.length
- === &#x22;number&#x22;;
+    return (typeof value === "undefined" ? "undefined" : _typeof(value)) === "object" &amp;&amp; "callee" in value &amp;&amp; typeof value.length
+ === "number";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4513,7 +4506,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isFunction(value) {
-    return typeof value === &#x22;function&#x22;;
+    return typeof value === "function";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4528,8 +4521,8 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isObject(obj) {
-    var type = typeof obj === &#x22;undefined&#x22; ? &#x22;undefined&#x22; : _typeof(obj);
-    return type === &#x22;function&#x22; || type === &#x22;object&#x22; &#x26;&#x26; !!obj;
+    var type = typeof obj === "undefined" ? "undefined" : _typeof(obj);
+    return type === "function" || type === "object" &amp;&amp; !!obj;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4561,7 +4554,7 @@ onStatusUpdate(status)
     <li>description and source-code<pre class="apidocCodePre">function object(keys, vals) {
     var o = {},
         i = 0;
-    for (; i &#x3c; keys.length; i++) {
+    for (; i &lt; keys.length; i++) {
         o[keys[i]] = vals[i];
     }
     return o;
@@ -4696,7 +4689,7 @@ onStatusUpdate(status)
 		if (this.stores) {
 			this.__storeunsubscribes__ = this.__storeunsubscribes__ || [];
 			var sS = this.setState.bind(this);
-			// this handles the triggering of a store, checking what&#x27;s updated if proto.storeKeys is utilized
+			// this handles the triggering of a store, checking what's updated if proto.storeKeys is utilized
 			var onStoreTrigger = function(obj){
 				var updateObj = filterByStoreKeys(this.storeKeys, obj);
 				if (updateObj) {
@@ -4704,10 +4697,10 @@ onStatusUpdate(status)
 				}
 			}.bind(this);
 			// for each store in this.stores...
-			for (var i = 0, ii = this.stores.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.stores.length; i &lt; ii; i++) {
 				var str = this.stores[i];
-				// if&#x27;s a function then we know it&#x27;s a class getting passed, not an instance
-				if (typeof str === &#x27;function&#x27;) {
+				// if's a function then we know it's a class getting passed, not an instance
+				if (typeof str === 'function') {
 					var storeId = str.id;
 					// if there is NOT a .singleton property on the store then this store has not been initialized yet, so do so
 					if (!str.singleton) {
@@ -4716,15 +4709,15 @@ onStatusUpdate(status)
 							Reflux.stores[storeId] = str.singleton;
 						}
 					}
-					// before we weren&#x27;t sure if we were working with an instance or class, so now we know an instance is created set it
-					// to the variables we were using so that we can just continue on knowing it&#x27;s the instance we&#x27;re working with
+					// before we weren't sure if we were working with an instance or class, so now we know an instance is created set it
+					// to the variables we were using so that we can just continue on knowing it's the instance we're working with
 					this.stores[i] = str = str.singleton;
 					// the instance should have an .id property as well if the class does, so set that here
 					str.id = storeId;
 					// if there is an id and there is a global state property for this store then merge
 					// the properties from that global state into the default state of the store AND then
 					// set the global state to that new state (since it may have previously been partial)
-					if (storeId &#x26;&#x26; Reflux.GlobalState[storeId]) {
+					if (storeId &amp;&amp; Reflux.GlobalState[storeId]) {
 						for (var key in Reflux.GlobalState[storeId]) {
 							str.state[key] = Reflux.GlobalState[storeId][key];
 						}
@@ -4735,7 +4728,7 @@ onStatusUpdate(status)
 					}
 					// if no id, then no messing with global state
 				}
-				// listen/subscribe for the &#x22;.trigger()&#x22; in the store, and track the unsubscribes so that we can unsubscribe on unmount
+				// listen/subscribe for the ".trigger()" in the store, and track the unsubscribes so that we can unsubscribe on unmount
 				if (!Reflux.serverMode) {
 					this.__storeunsubscribes__.push(str.listen(onStoreTrigger));
 				}
@@ -4752,7 +4745,7 @@ onStatusUpdate(status)
 		// if there are mappings that were delayed, do them now
 		var dmaps = this.__delayedmaps__;
 		if (dmaps) {
-			for (var j=0,jj=dmaps.length; j&#x3c;jj; j++) {
+			for (var j=0,jj=dmaps.length; j&lt;jj; j++) {
 				dmaps[j].func( dmaps[j].state );
 			}
 		}
@@ -4772,7 +4765,7 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">componentWillUnmount = function () {
 		if (this.__storeunsubscribes__) {
-			for (var i = 0, ii = this.__storeunsubscribes__.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.__storeunsubscribes__.length; i &lt; ii; i++) {
 				this.__storeunsubscribes__[i]();
 			}
 		}
@@ -4793,7 +4786,7 @@ onStatusUpdate(status)
     <li>description and source-code<pre class="apidocCodePre">mapStoreToState = function (store, filterFunc)
 	{
 		// make sure we have a proper singleton instance to work with
-		if (typeof store === &#x27;function&#x27;) {
+		if (typeof store === 'function') {
 			if (store.singleton) {
 				store = store.singleton;
 			} else {
@@ -4868,7 +4861,7 @@ onStatusUpdate(status)
 		if (this.stores) {
 			this.__storeunsubscribes__ = this.__storeunsubscribes__ || [];
 			var sS = this.setState.bind(this);
-			// this handles the triggering of a store, checking what&#x27;s updated if proto.storeKeys is utilized
+			// this handles the triggering of a store, checking what's updated if proto.storeKeys is utilized
 			var onStoreTrigger = function(obj){
 				var updateObj = filterByStoreKeys(this.storeKeys, obj);
 				if (updateObj) {
@@ -4876,10 +4869,10 @@ onStatusUpdate(status)
 				}
 			}.bind(this);
 			// for each store in this.stores...
-			for (var i = 0, ii = this.stores.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.stores.length; i &lt; ii; i++) {
 				var str = this.stores[i];
-				// if&#x27;s a function then we know it&#x27;s a class getting passed, not an instance
-				if (typeof str === &#x27;function&#x27;) {
+				// if's a function then we know it's a class getting passed, not an instance
+				if (typeof str === 'function') {
 					var storeId = str.id;
 					// if there is NOT a .singleton property on the store then this store has not been initialized yet, so do so
 					if (!str.singleton) {
@@ -4888,15 +4881,15 @@ onStatusUpdate(status)
 							Reflux.stores[storeId] = str.singleton;
 						}
 					}
-					// before we weren&#x27;t sure if we were working with an instance or class, so now we know an instance is created set it
-					// to the variables we were using so that we can just continue on knowing it&#x27;s the instance we&#x27;re working with
+					// before we weren't sure if we were working with an instance or class, so now we know an instance is created set it
+					// to the variables we were using so that we can just continue on knowing it's the instance we're working with
 					this.stores[i] = str = str.singleton;
 					// the instance should have an .id property as well if the class does, so set that here
 					str.id = storeId;
 					// if there is an id and there is a global state property for this store then merge
 					// the properties from that global state into the default state of the store AND then
 					// set the global state to that new state (since it may have previously been partial)
-					if (storeId &#x26;&#x26; Reflux.GlobalState[storeId]) {
+					if (storeId &amp;&amp; Reflux.GlobalState[storeId]) {
 						for (var key in Reflux.GlobalState[storeId]) {
 							str.state[key] = Reflux.GlobalState[storeId][key];
 						}
@@ -4907,7 +4900,7 @@ onStatusUpdate(status)
 					}
 					// if no id, then no messing with global state
 				}
-				// listen/subscribe for the &#x22;.trigger()&#x22; in the store, and track the unsubscribes so that we can unsubscribe on unmount
+				// listen/subscribe for the ".trigger()" in the store, and track the unsubscribes so that we can unsubscribe on unmount
 				if (!Reflux.serverMode) {
 					this.__storeunsubscribes__.push(str.listen(onStoreTrigger));
 				}
@@ -4924,7 +4917,7 @@ onStatusUpdate(status)
 		// if there are mappings that were delayed, do them now
 		var dmaps = this.__delayedmaps__;
 		if (dmaps) {
-			for (var j=0,jj=dmaps.length; j&#x3c;jj; j++) {
+			for (var j=0,jj=dmaps.length; j&lt;jj; j++) {
 				dmaps[j].func( dmaps[j].state );
 			}
 		}
@@ -4949,7 +4942,7 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">componentWillUnmount = function () {
 		if (this.__storeunsubscribes__) {
-			for (var i = 0, ii = this.__storeunsubscribes__.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.__storeunsubscribes__.length; i &lt; ii; i++) {
 				this.__storeunsubscribes__[i]();
 			}
 		}
@@ -4975,7 +4968,7 @@ onStatusUpdate(status)
     <li>description and source-code<pre class="apidocCodePre">mapStoreToState = function (store, filterFunc)
 	{
 		// make sure we have a proper singleton instance to work with
-		if (typeof store === &#x27;function&#x27;) {
+		if (typeof store === 'function') {
 			if (store.singleton) {
 				store = store.singleton;
 			} else {
@@ -5036,11 +5029,11 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fetchInitialState(listenable, defaultCallback) {
-    defaultCallback = defaultCallback &#x26;&#x26; this[defaultCallback] || defaultCallback;
+    defaultCallback = defaultCallback &amp;&amp; this[defaultCallback] || defaultCallback;
     var me = this;
-    if (_.isFunction(defaultCallback) &#x26;&#x26; _.isFunction(listenable.getInitialState)) {
+    if (_.isFunction(defaultCallback) &amp;&amp; _.isFunction(listenable.getInitialState)) {
         var data = listenable.getInitialState();
-        if (data &#x26;&#x26; _.isFunction(data.then)) {
+        if (data &amp;&amp; _.isFunction(data.then)) {
             data.then(function () {
                 defaultCallback.apply(me, arguments);
             });
@@ -5066,11 +5059,11 @@ onStatusUpdate(status)
         j,
         listener,
         listenables;
-    for (; i &#x3c; (this.subscriptions || []).length; ++i) {
+    for (; i &lt; (this.subscriptions || []).length; ++i) {
         listenables = [].concat(this.subscriptions[i].listenable);
-        for (j = 0; j &#x3c; listenables.length; j++) {
+        for (j = 0; j &lt; listenables.length; j++) {
             listener = listenables[j];
-            if (listener === listenable || listener.hasListener &#x26;&#x26; listener.hasListener(listenable)) {
+            if (listener === listenable || listener.hasListener &amp;&amp; listener.hasListener(listenable)) {
                 return true;
             }
         }
@@ -5090,7 +5083,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinConcat = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5103,10 +5096,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5128,7 +5121,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinLeading = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5141,10 +5134,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5166,7 +5159,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinStrict = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5179,10 +5172,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5204,7 +5197,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinTrailing = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5217,10 +5210,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5251,7 +5244,7 @@ onStatusUpdate(status)
     desub = listenable.listen(this[callback] || callback, this);
     unsubscriber = function unsubscriber() {
         var index = subs.indexOf(subscriptionobj);
-        _.throwIf(index === -1, &#x22;Tried to remove listen already gone from subscriptions list!&#x22;);
+        _.throwIf(index === -1, "Tried to remove listen already gone from subscriptions list!");
         subs.splice(index, 1);
         desub();
     };
@@ -5269,13 +5262,13 @@ class StatusStore extends Reflux.Store
 constructor()
 {
     super();
-    this.state = {flag:&#x27;OFFLINE&#x27;}; // &#x3c;- set store&#x27;s default state much like in React
+    this.state = {flag:'OFFLINE'}; // &lt;- set store's default state much like in React
     this.<span class="apidocCodeKeywordSpan">listenTo</span>(statusUpdate, this.onStatusUpdate); // listen to the statusUpdate action
 }
 
 onStatusUpdate(status)
 {
-    var newFlag = status ? &#x27;ONLINE&#x27; : &#x27;OFFLINE&#x27;;
+    var newFlag = status ? 'ONLINE' : 'OFFLINE';
     this.setState({flag:newFlag});
 }
 ...</pre></li>
@@ -5296,7 +5289,7 @@ onStatusUpdate(status)
         var cbname = _.callbackName(key),
             localname = this[cbname] ? cbname : this[key] ? key : undefined;
         if (localname) {
-            this.listenTo(allListenables[key], localname, this[cbname + &#x22;Default&#x22;] || this[localname + &#x22;Default&#x22;] || localname);
+            this.listenTo(allListenables[key], localname, this[cbname + "Default"] || this[localname + "Default"] || localname);
         }
     }
 }</pre></li>
@@ -5316,11 +5309,11 @@ onStatusUpdate(status)
     var sub,
         i = 0,
         subs = this.subscriptions || [];
-    for (; i &#x3c; subs.length; i++) {
+    for (; i &lt; subs.length; i++) {
         sub = subs[i];
         if (sub.listenable === listenable) {
             sub.stop();
-            _.throwIf(subs.indexOf(sub) !== -1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+            _.throwIf(subs.indexOf(sub) !== -1, "Failed to remove listen from subscriptions list!");
             return true;
         }
     }
@@ -5343,7 +5336,7 @@ onStatusUpdate(status)
         subs = this.subscriptions || [];
     while (remaining = subs.length) {
         subs[0].stop();
-        _.throwIf(subs.length !== remaining - 1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+        _.throwIf(subs.length !== remaining - 1, "Failed to remove listen from subscriptions list!");
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5360,13 +5353,13 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function validateListening(listenable) {
     if (listenable === this) {
-        return &#x22;Listener is not able to listen to itself&#x22;;
+        return "Listener is not able to listen to itself";
     }
     if (!_.isFunction(listenable.listen)) {
-        return listenable + &#x22; is missing a listen method&#x22;;
+        return listenable + " is missing a listen method";
     }
-    if (listenable.hasListener &#x26;&#x26; listenable.hasListener(this)) {
-        return &#x22;Listener cannot listen to this listenable because of circular loop&#x22;;
+    if (listenable.hasListener &amp;&amp; listenable.hasListener(this)) {
+        return "Listener cannot listen to this listenable because of circular loop";
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5387,11 +5380,11 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fetchInitialState(listenable, defaultCallback) {
-    defaultCallback = defaultCallback &#x26;&#x26; this[defaultCallback] || defaultCallback;
+    defaultCallback = defaultCallback &amp;&amp; this[defaultCallback] || defaultCallback;
     var me = this;
-    if (_.isFunction(defaultCallback) &#x26;&#x26; _.isFunction(listenable.getInitialState)) {
+    if (_.isFunction(defaultCallback) &amp;&amp; _.isFunction(listenable.getInitialState)) {
         var data = listenable.getInitialState();
-        if (data &#x26;&#x26; _.isFunction(data.then)) {
+        if (data &amp;&amp; _.isFunction(data.then)) {
             data.then(function () {
                 defaultCallback.apply(me, arguments);
             });
@@ -5422,11 +5415,11 @@ onStatusUpdate(status)
         j,
         listener,
         listenables;
-    for (; i &#x3c; (this.subscriptions || []).length; ++i) {
+    for (; i &lt; (this.subscriptions || []).length; ++i) {
         listenables = [].concat(this.subscriptions[i].listenable);
-        for (j = 0; j &#x3c; listenables.length; j++) {
+        for (j = 0; j &lt; listenables.length; j++) {
             listener = listenables[j];
-            if (listener === listenable || listener.hasListener &#x26;&#x26; listener.hasListener(listenable)) {
+            if (listener === listenable || listener.hasListener &amp;&amp; listener.hasListener(listenable)) {
                 return true;
             }
         }
@@ -5451,7 +5444,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinConcat = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5464,10 +5457,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5494,7 +5487,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinLeading = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5507,10 +5500,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5537,7 +5530,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinStrict = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5550,10 +5543,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5580,7 +5573,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinTrailing = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5593,10 +5586,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5632,7 +5625,7 @@ onStatusUpdate(status)
     desub = listenable.listen(this[callback] || callback, this);
     unsubscriber = function unsubscriber() {
         var index = subs.indexOf(subscriptionobj);
-        _.throwIf(index === -1, &#x22;Tried to remove listen already gone from subscriptions list!&#x22;);
+        _.throwIf(index === -1, "Tried to remove listen already gone from subscriptions list!");
         subs.splice(index, 1);
         desub();
     };
@@ -5650,13 +5643,13 @@ class StatusStore extends Reflux.Store
 constructor()
 {
     super();
-    this.state = {flag:&#x27;OFFLINE&#x27;}; // &#x3c;- set store&#x27;s default state much like in React
+    this.state = {flag:'OFFLINE'}; // &lt;- set store's default state much like in React
     this.<span class="apidocCodeKeywordSpan">listenTo</span>(statusUpdate, this.onStatusUpdate); // listen to the statusUpdate action
 }
 
 onStatusUpdate(status)
 {
-    var newFlag = status ? &#x27;ONLINE&#x27; : &#x27;OFFLINE&#x27;;
+    var newFlag = status ? 'ONLINE' : 'OFFLINE';
     this.setState({flag:newFlag});
 }
 ...</pre></li>
@@ -5682,7 +5675,7 @@ onStatusUpdate(status)
         var cbname = _.callbackName(key),
             localname = this[cbname] ? cbname : this[key] ? key : undefined;
         if (localname) {
-            this.listenTo(allListenables[key], localname, this[cbname + &#x22;Default&#x22;] || this[localname + &#x22;Default&#x22;] || localname);
+            this.listenTo(allListenables[key], localname, this[cbname + "Default"] || this[localname + "Default"] || localname);
         }
     }
 }</pre></li>
@@ -5707,11 +5700,11 @@ onStatusUpdate(status)
     var sub,
         i = 0,
         subs = this.subscriptions || [];
-    for (; i &#x3c; subs.length; i++) {
+    for (; i &lt; subs.length; i++) {
         sub = subs[i];
         if (sub.listenable === listenable) {
             sub.stop();
-            _.throwIf(subs.indexOf(sub) !== -1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+            _.throwIf(subs.indexOf(sub) !== -1, "Failed to remove listen from subscriptions list!");
             return true;
         }
     }
@@ -5739,7 +5732,7 @@ onStatusUpdate(status)
         subs = this.subscriptions || [];
     while (remaining = subs.length) {
         subs[0].stop();
-        _.throwIf(subs.length !== remaining - 1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+        _.throwIf(subs.length !== remaining - 1, "Failed to remove listen from subscriptions list!");
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5761,13 +5754,13 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function validateListening(listenable) {
     if (listenable === this) {
-        return &#x22;Listener is not able to listen to itself&#x22;;
+        return "Listener is not able to listen to itself";
     }
     if (!_.isFunction(listenable.listen)) {
-        return listenable + &#x22; is missing a listen method&#x22;;
+        return listenable + " is missing a listen method";
     }
-    if (listenable.hasListener &#x26;&#x26; listenable.hasListener(this)) {
-        return &#x22;Listener cannot listen to this listenable because of circular loop&#x22;;
+    if (listenable.hasListener &amp;&amp; listenable.hasListener(this)) {
+        return "Listener cannot listen to this listenable because of circular loop";
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5792,7 +5785,7 @@ onStatusUpdate(status)
         subs = this.subscriptions || [];
     while (remaining = subs.length) {
         subs[0].stop();
-        _.throwIf(subs.length !== remaining - 1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+        _.throwIf(subs.length !== remaining - 1, "Failed to remove listen from subscriptions list!");
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5808,11 +5801,11 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fetchInitialState(listenable, defaultCallback) {
-    defaultCallback = defaultCallback &#x26;&#x26; this[defaultCallback] || defaultCallback;
+    defaultCallback = defaultCallback &amp;&amp; this[defaultCallback] || defaultCallback;
     var me = this;
-    if (_.isFunction(defaultCallback) &#x26;&#x26; _.isFunction(listenable.getInitialState)) {
+    if (_.isFunction(defaultCallback) &amp;&amp; _.isFunction(listenable.getInitialState)) {
         var data = listenable.getInitialState();
-        if (data &#x26;&#x26; _.isFunction(data.then)) {
+        if (data &amp;&amp; _.isFunction(data.then)) {
             data.then(function () {
                 defaultCallback.apply(me, arguments);
             });
@@ -5838,11 +5831,11 @@ onStatusUpdate(status)
         j,
         listener,
         listenables;
-    for (; i &#x3c; (this.subscriptions || []).length; ++i) {
+    for (; i &lt; (this.subscriptions || []).length; ++i) {
         listenables = [].concat(this.subscriptions[i].listenable);
-        for (j = 0; j &#x3c; listenables.length; j++) {
+        for (j = 0; j &lt; listenables.length; j++) {
             listener = listenables[j];
-            if (listener === listenable || listener.hasListener &#x26;&#x26; listener.hasListener(listenable)) {
+            if (listener === listenable || listener.hasListener &amp;&amp; listener.hasListener(listenable)) {
                 return true;
             }
         }
@@ -5862,7 +5855,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinConcat = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5875,10 +5868,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5900,7 +5893,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinLeading = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5913,10 +5906,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5938,7 +5931,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinStrict = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5951,10 +5944,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -5976,7 +5969,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">joinTrailing = function () /* listenables..., callback*/{
-    _.throwIf(arguments.length &#x3c; 2, &#x22;Cannot create a join with less than 2 listenables!&#x22;);
+    _.throwIf(arguments.length &lt; 2, "Cannot create a join with less than 2 listenables!");
     var listenables = slice.call(arguments),
         callback = listenables.pop(),
         numberOfListenables = listenables.length,
@@ -5989,10 +5982,10 @@ onStatusUpdate(status)
         i,
         cancels = [],
         subobj;
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         _.throwIf(this.validateListening(listenables[i]));
     }
-    for (i = 0; i &#x3c; numberOfListenables; i++) {
+    for (i = 0; i &lt; numberOfListenables; i++) {
         cancels.push(listenables[i].listen(newListener(i, join), this));
     }
     reset(join);
@@ -6023,7 +6016,7 @@ onStatusUpdate(status)
     desub = listenable.listen(this[callback] || callback, this);
     unsubscriber = function unsubscriber() {
         var index = subs.indexOf(subscriptionobj);
-        _.throwIf(index === -1, &#x22;Tried to remove listen already gone from subscriptions list!&#x22;);
+        _.throwIf(index === -1, "Tried to remove listen already gone from subscriptions list!");
         subs.splice(index, 1);
         desub();
     };
@@ -6041,13 +6034,13 @@ class StatusStore extends Reflux.Store
 constructor()
 {
     super();
-    this.state = {flag:&#x27;OFFLINE&#x27;}; // &#x3c;- set store&#x27;s default state much like in React
+    this.state = {flag:'OFFLINE'}; // &lt;- set store's default state much like in React
     this.<span class="apidocCodeKeywordSpan">listenTo</span>(statusUpdate, this.onStatusUpdate); // listen to the statusUpdate action
 }
 
 onStatusUpdate(status)
 {
-    var newFlag = status ? &#x27;ONLINE&#x27; : &#x27;OFFLINE&#x27;;
+    var newFlag = status ? 'ONLINE' : 'OFFLINE';
     this.setState({flag:newFlag});
 }
 ...</pre></li>
@@ -6068,7 +6061,7 @@ onStatusUpdate(status)
         var cbname = _.callbackName(key),
             localname = this[cbname] ? cbname : this[key] ? key : undefined;
         if (localname) {
-            this.listenTo(allListenables[key], localname, this[cbname + &#x22;Default&#x22;] || this[localname + &#x22;Default&#x22;] || localname);
+            this.listenTo(allListenables[key], localname, this[cbname + "Default"] || this[localname + "Default"] || localname);
         }
     }
 }</pre></li>
@@ -6088,11 +6081,11 @@ onStatusUpdate(status)
     var sub,
         i = 0,
         subs = this.subscriptions || [];
-    for (; i &#x3c; subs.length; i++) {
+    for (; i &lt; subs.length; i++) {
         sub = subs[i];
         if (sub.listenable === listenable) {
             sub.stop();
-            _.throwIf(subs.indexOf(sub) !== -1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+            _.throwIf(subs.indexOf(sub) !== -1, "Failed to remove listen from subscriptions list!");
             return true;
         }
     }
@@ -6115,7 +6108,7 @@ onStatusUpdate(status)
         subs = this.subscriptions || [];
     while (remaining = subs.length) {
         subs[0].stop();
-        _.throwIf(subs.length !== remaining - 1, &#x22;Failed to remove listen from subscriptions list!&#x22;);
+        _.throwIf(subs.length !== remaining - 1, "Failed to remove listen from subscriptions list!");
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -6132,13 +6125,13 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function validateListening(listenable) {
     if (listenable === this) {
-        return &#x22;Listener is not able to listen to itself&#x22;;
+        return "Listener is not able to listen to itself";
     }
     if (!_.isFunction(listenable.listen)) {
-        return listenable + &#x22; is missing a listen method&#x22;;
+        return listenable + " is missing a listen method";
     }
-    if (listenable.hasListener &#x26;&#x26; listenable.hasListener(this)) {
-        return &#x22;Listener cannot listen to this listenable because of circular loop&#x22;;
+    if (listenable.hasListener &amp;&amp; listenable.hasListener(this)) {
+        return "Listener cannot listen to this listenable because of circular loop";
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -6495,7 +6488,7 @@ onStatusUpdate(status)
 		if (this.stores) {
 			this.__storeunsubscribes__ = this.__storeunsubscribes__ || [];
 			var sS = this.setState.bind(this);
-			// this handles the triggering of a store, checking what&#x27;s updated if proto.storeKeys is utilized
+			// this handles the triggering of a store, checking what's updated if proto.storeKeys is utilized
 			var onStoreTrigger = function(obj){
 				var updateObj = filterByStoreKeys(this.storeKeys, obj);
 				if (updateObj) {
@@ -6503,10 +6496,10 @@ onStatusUpdate(status)
 				}
 			}.bind(this);
 			// for each store in this.stores...
-			for (var i = 0, ii = this.stores.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.stores.length; i &lt; ii; i++) {
 				var str = this.stores[i];
-				// if&#x27;s a function then we know it&#x27;s a class getting passed, not an instance
-				if (typeof str === &#x27;function&#x27;) {
+				// if's a function then we know it's a class getting passed, not an instance
+				if (typeof str === 'function') {
 					var storeId = str.id;
 					// if there is NOT a .singleton property on the store then this store has not been initialized yet, so do so
 					if (!str.singleton) {
@@ -6515,15 +6508,15 @@ onStatusUpdate(status)
 							Reflux.stores[storeId] = str.singleton;
 						}
 					}
-					// before we weren&#x27;t sure if we were working with an instance or class, so now we know an instance is created set it
-					// to the variables we were using so that we can just continue on knowing it&#x27;s the instance we&#x27;re working with
+					// before we weren't sure if we were working with an instance or class, so now we know an instance is created set it
+					// to the variables we were using so that we can just continue on knowing it's the instance we're working with
 					this.stores[i] = str = str.singleton;
 					// the instance should have an .id property as well if the class does, so set that here
 					str.id = storeId;
 					// if there is an id and there is a global state property for this store then merge
 					// the properties from that global state into the default state of the store AND then
 					// set the global state to that new state (since it may have previously been partial)
-					if (storeId &#x26;&#x26; Reflux.GlobalState[storeId]) {
+					if (storeId &amp;&amp; Reflux.GlobalState[storeId]) {
 						for (var key in Reflux.GlobalState[storeId]) {
 							str.state[key] = Reflux.GlobalState[storeId][key];
 						}
@@ -6534,7 +6527,7 @@ onStatusUpdate(status)
 					}
 					// if no id, then no messing with global state
 				}
-				// listen/subscribe for the &#x22;.trigger()&#x22; in the store, and track the unsubscribes so that we can unsubscribe on unmount
+				// listen/subscribe for the ".trigger()" in the store, and track the unsubscribes so that we can unsubscribe on unmount
 				if (!Reflux.serverMode) {
 					this.__storeunsubscribes__.push(str.listen(onStoreTrigger));
 				}
@@ -6551,7 +6544,7 @@ onStatusUpdate(status)
 		// if there are mappings that were delayed, do them now
 		var dmaps = this.__delayedmaps__;
 		if (dmaps) {
-			for (var j=0,jj=dmaps.length; j&#x3c;jj; j++) {
+			for (var j=0,jj=dmaps.length; j&lt;jj; j++) {
 				dmaps[j].func( dmaps[j].state );
 			}
 		}
@@ -6571,7 +6564,7 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">componentWillUnmount = function () {
 		if (this.__storeunsubscribes__) {
-			for (var i = 0, ii = this.__storeunsubscribes__.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.__storeunsubscribes__.length; i &lt; ii; i++) {
 				this.__storeunsubscribes__[i]();
 			}
 		}
@@ -6592,7 +6585,7 @@ onStatusUpdate(status)
     <li>description and source-code<pre class="apidocCodePre">mapStoreToState = function (store, filterFunc)
 	{
 		// make sure we have a proper singleton instance to work with
-		if (typeof store === &#x27;function&#x27;) {
+		if (typeof store === 'function') {
 			if (store.singleton) {
 				store = store.singleton;
 			} else {
@@ -6667,7 +6660,7 @@ onStatusUpdate(status)
 		if (this.stores) {
 			this.__storeunsubscribes__ = this.__storeunsubscribes__ || [];
 			var sS = this.setState.bind(this);
-			// this handles the triggering of a store, checking what&#x27;s updated if proto.storeKeys is utilized
+			// this handles the triggering of a store, checking what's updated if proto.storeKeys is utilized
 			var onStoreTrigger = function(obj){
 				var updateObj = filterByStoreKeys(this.storeKeys, obj);
 				if (updateObj) {
@@ -6675,10 +6668,10 @@ onStatusUpdate(status)
 				}
 			}.bind(this);
 			// for each store in this.stores...
-			for (var i = 0, ii = this.stores.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.stores.length; i &lt; ii; i++) {
 				var str = this.stores[i];
-				// if&#x27;s a function then we know it&#x27;s a class getting passed, not an instance
-				if (typeof str === &#x27;function&#x27;) {
+				// if's a function then we know it's a class getting passed, not an instance
+				if (typeof str === 'function') {
 					var storeId = str.id;
 					// if there is NOT a .singleton property on the store then this store has not been initialized yet, so do so
 					if (!str.singleton) {
@@ -6687,15 +6680,15 @@ onStatusUpdate(status)
 							Reflux.stores[storeId] = str.singleton;
 						}
 					}
-					// before we weren&#x27;t sure if we were working with an instance or class, so now we know an instance is created set it
-					// to the variables we were using so that we can just continue on knowing it&#x27;s the instance we&#x27;re working with
+					// before we weren't sure if we were working with an instance or class, so now we know an instance is created set it
+					// to the variables we were using so that we can just continue on knowing it's the instance we're working with
 					this.stores[i] = str = str.singleton;
 					// the instance should have an .id property as well if the class does, so set that here
 					str.id = storeId;
 					// if there is an id and there is a global state property for this store then merge
 					// the properties from that global state into the default state of the store AND then
 					// set the global state to that new state (since it may have previously been partial)
-					if (storeId &#x26;&#x26; Reflux.GlobalState[storeId]) {
+					if (storeId &amp;&amp; Reflux.GlobalState[storeId]) {
 						for (var key in Reflux.GlobalState[storeId]) {
 							str.state[key] = Reflux.GlobalState[storeId][key];
 						}
@@ -6706,7 +6699,7 @@ onStatusUpdate(status)
 					}
 					// if no id, then no messing with global state
 				}
-				// listen/subscribe for the &#x22;.trigger()&#x22; in the store, and track the unsubscribes so that we can unsubscribe on unmount
+				// listen/subscribe for the ".trigger()" in the store, and track the unsubscribes so that we can unsubscribe on unmount
 				if (!Reflux.serverMode) {
 					this.__storeunsubscribes__.push(str.listen(onStoreTrigger));
 				}
@@ -6723,7 +6716,7 @@ onStatusUpdate(status)
 		// if there are mappings that were delayed, do them now
 		var dmaps = this.__delayedmaps__;
 		if (dmaps) {
-			for (var j=0,jj=dmaps.length; j&#x3c;jj; j++) {
+			for (var j=0,jj=dmaps.length; j&lt;jj; j++) {
 				dmaps[j].func( dmaps[j].state );
 			}
 		}
@@ -6748,7 +6741,7 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">componentWillUnmount = function () {
 		if (this.__storeunsubscribes__) {
-			for (var i = 0, ii = this.__storeunsubscribes__.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.__storeunsubscribes__.length; i &lt; ii; i++) {
 				this.__storeunsubscribes__[i]();
 			}
 		}
@@ -6774,7 +6767,7 @@ onStatusUpdate(status)
     <li>description and source-code<pre class="apidocCodePre">mapStoreToState = function (store, filterFunc)
 	{
 		// make sure we have a proper singleton instance to work with
-		if (typeof store === &#x27;function&#x27;) {
+		if (typeof store === 'function') {
 			if (store.singleton) {
 				store = store.singleton;
 			} else {
@@ -6837,7 +6830,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">Store = function () {
-		// extending doesn&#x27;t really work well here, so instead we create an internal instance
+		// extending doesn't really work well here, so instead we create an internal instance
 		// and just loop through its properties/methods and make a getter/setter for each
 		// that will actually be getting and setting on that internal instance.
 		this.__store__ = Reflux.createStore();
@@ -6875,33 +6868,33 @@ onStatusUpdate(status)
 		for (var key in obj) {
 			this.state[key] = obj[key];
 		}
-		// if there&#x27;s an id (i.e. it&#x27;s being tracked by the global state) then make sure to update the global state
+		// if there's an id (i.e. it's being tracked by the global state) then make sure to update the global state
 		if (this.id) {
 			Reflux.GlobalState[this.id] = this.state;
 		}
-		// trigger, because any component it&#x27;s attached to is listening and will merge the store state into its own on a store trigger
+		// trigger, because any component it's attached to is listening and will merge the store state into its own on a store trigger
 		this.trigger(obj);
 	}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-        this.state = {flag:&#x27;OFFLINE&#x27;}; // &#x3c;- set store&#x27;s default state much like in React
+        this.state = {flag:'OFFLINE'}; // &lt;- set store's default state much like in React
         this.listenTo(statusUpdate, this.onStatusUpdate); // listen to the statusUpdate action
     }
 
     onStatusUpdate(status)
     {
-        var newFlag = status ? &#x27;ONLINE&#x27; : &#x27;OFFLINE&#x27;;
+        var newFlag = status ? 'ONLINE' : 'OFFLINE';
         this.<span class="apidocCodeKeywordSpan">setState</span>({flag:newFlag});
     }
 }
 ```
 
-In the above example, whenever the action `statusUpdate` is called, the store&#x27;s `onStatusUpdate` callback will be called with
+In the above example, whenever the action `statusUpdate` is called, the store's `onStatusUpdate` callback will be called with
  whatever parameters were sent in the action. E.g. if the action is called as `statusUpdate(true)` then the `status` argument in
  the `onStatusUpdate` function is `true`.
 
 Stores also integrate easily with sets of actions via things like `this.listenables`. When an actions object (or an Array of multiple
  actions objects) is applied to `this.listenables` you may automatically add listeners simply by naming convention. Just name the
- functions either after the action name (such as `actionName`, or the camelcased action name preceded with &#x22;on&#x22;, (such
+ functions either after the action name (such as `actionName`, or the camelcased action name preceded with "on", (such
  as `onActionName`).
 ...</pre></li>
     </ul>
@@ -6925,33 +6918,33 @@ Stores also integrate easily with sets of actions via things like `this.listenab
 		for (var key in obj) {
 			this.state[key] = obj[key];
 		}
-		// if there&#x27;s an id (i.e. it&#x27;s being tracked by the global state) then make sure to update the global state
+		// if there's an id (i.e. it's being tracked by the global state) then make sure to update the global state
 		if (this.id) {
 			Reflux.GlobalState[this.id] = this.state;
 		}
-		// trigger, because any component it&#x27;s attached to is listening and will merge the store state into its own on a store trigger
+		// trigger, because any component it's attached to is listening and will merge the store state into its own on a store trigger
 		this.trigger(obj);
 	}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-        this.state = {flag:&#x27;OFFLINE&#x27;}; // &#x3c;- set store&#x27;s default state much like in React
+        this.state = {flag:'OFFLINE'}; // &lt;- set store's default state much like in React
         this.listenTo(statusUpdate, this.onStatusUpdate); // listen to the statusUpdate action
     }
 
     onStatusUpdate(status)
     {
-        var newFlag = status ? &#x27;ONLINE&#x27; : &#x27;OFFLINE&#x27;;
+        var newFlag = status ? 'ONLINE' : 'OFFLINE';
         this.<span class="apidocCodeKeywordSpan">setState</span>({flag:newFlag});
     }
 }
 ```
 
-In the above example, whenever the action `statusUpdate` is called, the store&#x27;s `onStatusUpdate` callback will be called with
+In the above example, whenever the action `statusUpdate` is called, the store's `onStatusUpdate` callback will be called with
  whatever parameters were sent in the action. E.g. if the action is called as `statusUpdate(true)` then the `status` argument in
  the `onStatusUpdate` function is `true`.
 
 Stores also integrate easily with sets of actions via things like `this.listenables`. When an actions object (or an Array of multiple
  actions objects) is applied to `this.listenables` you may automatically add listeners simply by naming convention. Just name the
- functions either after the action name (such as `actionName`, or the camelcased action name preceded with &#x22;on&#x22;, (such
+ functions either after the action name (such as `actionName`, or the camelcased action name preceded with "on", (such
  as `onActionName`).
 ...</pre></li>
     </ul>
@@ -7025,7 +7018,7 @@ Stores also integrate easily with sets of actions via things like `this.listenab
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function useKeep() {
-	var bool = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : true;
+	var bool = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : true;
 
 	use = bool;
 }</pre></li>
@@ -7120,7 +7113,7 @@ Stores also integrate easily with sets of actions via things like `this.listenab
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function useKeep() {
-	var bool = arguments.length &#x3e; 0 &#x26;&#x26; arguments[0] !== undefined ? arguments[0] : true;
+	var bool = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : true;
 
 	use = bool;
 }</pre></li>
@@ -7143,7 +7136,7 @@ Stores also integrate easily with sets of actions via things like `this.listenab
     <ul>
     <li>description and source-code<pre class="apidocCodePre">connect = function (listenable, key) {
 
-    _.throwIf(typeof(key) === &#x27;undefined&#x27;, &#x27;Reflux.connect() requires a key.&#x27;);
+    _.throwIf(typeof(key) === 'undefined', 'Reflux.connect() requires a key.');
 
     return {
         getInitialState: function() {
@@ -7184,7 +7177,7 @@ Stores also integrate easily with sets of actions via things like `this.listenab
     <ul>
     <li>description and source-code<pre class="apidocCodePre">connectFilter = function (listenable, key, filterFunc) {
 
-    _.throwIf(_.isFunction(key), &#x27;Reflux.connectFilter() requires a key.&#x27;);
+    _.throwIf(_.isFunction(key), 'Reflux.connectFilter() requires a key.');
 
     return {
         getInitialState: function() {
@@ -7194,7 +7187,7 @@ Stores also integrate easily with sets of actions via things like `this.listenab
 
             // Filter initial payload from store.
             var result = filterFunc.call(this, listenable.getInitialState());
-            if (typeof(result) !== &#x27;undefined&#x27;) {
+            if (typeof(result) !== 'undefined') {
                 return _.object([key], [result]);
             } else {
                 return {};
@@ -7238,34 +7231,34 @@ Stores also integrate easily with sets of actions via things like `this.listenab
     }
 
     for (var a in ActionMethods) {
-        if (!allowed[a] &#x26;&#x26; PublisherMethods[a]) {
-            throw new Error(&#x22;Cannot override API method &#x22; + a + &#x22; in Reflux.ActionMethods. Use another method name or override it
- on Reflux.PublisherMethods instead.&#x22;);
+        if (!allowed[a] &amp;&amp; PublisherMethods[a]) {
+            throw new Error("Cannot override API method " + a + " in Reflux.ActionMethods. Use another method name or override it
+ on Reflux.PublisherMethods instead.");
         }
     }
 
     for (var d in definition) {
-        if (!allowed[d] &#x26;&#x26; PublisherMethods[d]) {
-            throw new Error(&#x22;Cannot override API method &#x22; + d + &#x22; in action creation. Use another method name or override it on
-Reflux.PublisherMethods instead.&#x22;);
+        if (!allowed[d] &amp;&amp; PublisherMethods[d]) {
+            throw new Error("Cannot override API method " + d + " in action creation. Use another method name or override it on
+Reflux.PublisherMethods instead.");
         }
     }
 
     definition.children = definition.children || [];
     if (definition.asyncResult) {
-        definition.children = definition.children.concat([&#x22;completed&#x22;, &#x22;failed&#x22;]);
+        definition.children = definition.children.concat(["completed", "failed"]);
     }
 
     var i = 0,
         childActions = {};
-    for (; i &#x3c; definition.children.length; i++) {
+    for (; i &lt; definition.children.length; i++) {
         var chDef = definition.children[i];
-        var chName = typeof chDef === &#x22;string&#x22; ? chDef : chDef.actionName;
+        var chName = typeof chDef === "string" ? chDef : chDef.actionName;
         childActions[chName] = createAction(chDef);
     }
 
     var context = _.extend({
-        eventLabel: &#x22;action&#x22;,
+        eventLabel: "action",
         emitter: new _.EventEmitter(),
         _isAction: true
     }, PublisherMethods, ActionMethods, definition);
@@ -7276,8 +7269,8 @@ Reflux.PublisherMethods instead.&#x22;);
 </span>        for (var ignore in functor.childActions) {
             hasChildActions = true;break;
         }
-        var async = !functor.sync &#x26;&#x26; typeof functor.sync !== &#x22;undefined&#x22; || hasChildActions;
-        var triggerType = async ? &#x22;triggerAsync&#x22; : &#x22;trigger&#x22;;
+        var async = !functor.sync &amp;&amp; typeof functor.sync !== "undefined" || hasChildActions;
+        var triggerType = async ? "triggerAsync" : "trigger";
         return functor[triggerType].apply(functor, arguments);
     };
 
@@ -7344,9 +7337,9 @@ There is also a convenience function for creating multiple actions.
 
 ```javascript
 var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
-    &#x22;statusUpdate&#x22;,
-    &#x22;statusEdited&#x22;,
-    &#x22;statusAdded&#x22;
+    "statusUpdate",
+    "statusEdited",
+    "statusAdded"
 ]);
 
 // Actions object now contains the actions
@@ -7373,16 +7366,16 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
     definition = definition || {};
 
     for (var a in StoreMethods) {
-        if (!allowed[a] &#x26;&#x26; (PublisherMethods[a] || ListenerMethods[a])) {
-            throw new Error(&#x22;Cannot override API method &#x22; + a + &#x22; in Reflux.StoreMethods. Use another method name or override it
- on Reflux.PublisherMethods / Reflux.ListenerMethods instead.&#x22;);
+        if (!allowed[a] &amp;&amp; (PublisherMethods[a] || ListenerMethods[a])) {
+            throw new Error("Cannot override API method " + a + " in Reflux.StoreMethods. Use another method name or override it
+ on Reflux.PublisherMethods / Reflux.ListenerMethods instead.");
         }
     }
 
     for (var d in definition) {
-        if (!allowed[d] &#x26;&#x26; (PublisherMethods[d] || ListenerMethods[d])) {
-            throw new Error(&#x22;Cannot override API method &#x22; + d + &#x22; in store creation. Use another method name or override it on Reflux
-.PublisherMethods / Reflux.ListenerMethods instead.&#x22;);
+        if (!allowed[d] &amp;&amp; (PublisherMethods[d] || ListenerMethods[d])) {
+            throw new Error("Cannot override API method " + d + " in store creation. Use another method name or override it on Reflux
+.PublisherMethods / Reflux.ListenerMethods instead.");
         }
     }
 
@@ -7393,14 +7386,14 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
             arr;
         this.subscriptions = [];
         this.emitter = new _.EventEmitter();
-        this.eventLabel = &#x22;change&#x22;;
+        this.eventLabel = "change";
         (0, _bindMethods.bindMethods)(this, definition);
-        if (this.init &#x26;&#x26; _.isFunction(this.init)) {
+        if (this.init &amp;&amp; _.isFunction(this.init)) {
             this.init();
         }
         if (this.listenables) {
             arr = [].concat(this.listenables);
-            for (; i &#x3c; arr.length; i++) {
+            for (; i &lt; arr.length; i++) {
                 this.listenToMany(arr[i]);
             }
         }
@@ -7442,9 +7435,9 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 		return;
 	}
 	
-	// if Reflux and React aren&#x27;t present then ignore, wait until they are properly present
-	// also ignore if it&#x27;s been called before UNLESS there&#x27;s manual extending happening
-	if (!_react || !_extend || (_defined &#x26;&#x26; !extend)) {
+	// if Reflux and React aren't present then ignore, wait until they are properly present
+	// also ignore if it's been called before UNLESS there's manual extending happening
+	if (!_react || !_extend || (_defined &amp;&amp; !extend)) {
 		return;
 	}
 	
@@ -7456,9 +7449,9 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 	 * React.Component. Then you may hook any Reflux store that has a
 	 * `this.state` property containing its state values to the component
 	 * via `this.store` or an Array of Reflux stores via `this.stores` in
-	 * the component&#x27;s constructor (similar to how you assign initial state
+	 * the component's constructor (similar to how you assign initial state
 	 * in the constructor in ES6 style React). The default values of the
-	 * stores will automatically reflect in the component&#x27;s state, and any
+	 * stores will automatically reflect in the component's state, and any
 	 * further `trigger` calls from that store will update properties passed
 	 * in the trigger into the component automatically.
 	 */
@@ -7496,7 +7489,7 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 		if (this.stores) {
 			this.__storeunsubscribes__ = this.__storeunsubscribes__ || [];
 			var sS = this.setState.bind(this);
-			// this handles the triggering of a store, checking what&#x27;s updated if proto.storeKeys is utilized
+			// this handles the triggering of a store, checking what's updated if proto.storeKeys is utilized
 			var onStoreTrigger = function(obj){
 				var updateObj = filterByStoreKeys(this.storeKeys, obj);
 				if (updateObj) {
@@ -7504,10 +7497,10 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 				}
 			}.bind(this);
 			// for each store in this.stores...
-			for (var i = 0, ii = this.stores.length; i &#x3c; ii; i++) {
+			for (var i = 0, ii = this.stores.length; i &lt; ii; i++) {
 				var str = this.stores[i];
-				// if&#x27;s a function then we know it&#x27;s a class getting passed, not an instance
-				if (typeof str === &#x27;function&#x27;) {
+				// if's a function then we know it's a class getting passed, not an instance
+				if (typeof str === 'function') {
 					var storeId = str.id;
 					// if there is NOT a .singleton property on the store then this store has not been initialized yet, so do so
 					if (!str.singleton) {
@@ -7516,8 +7509,8 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 							Reflux.stores[storeId] = str.singleton;
 						}
 					}
-					// before we weren&#x27;t sure if we were working with an instance or class, so now we know an instance is created set it
-					// to the variables we were using so that we can just continue on knowing it&#x27;s the instance we&#x27;re working with
+					// before we weren't sure if we were working with an instance or class, so now we know an instance is created set it
+					// to the variables we were using so that we can just continue on knowing it's the instance we're working with
 					this.stores[i] = str = str.singleton;
 					// the instance should have an .id property as well if the class does, so set that here
 					str.id = storeId;
@@ -7529,13 +7522,13 @@ var Actions = Reflux.<span class="apidocCodeKeywordSpan">createActions</span>([
 	}
 };
 
-// first try to see if there&#x27;s a global React var and use it
-if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
+// first try to see if there's a global React var and use it
+if (typeof React !== 'undefined' &amp;&amp; React) {
 	Reflux.<span class="apidocCodeKeywordSpan">defineReact</span>(React);
-// otherwise we&#x27;re gonna resort to &#x27;try&#x27; stuff in case of other environments
+// otherwise we're gonna resort to 'try' stuff in case of other environments
 } else {
 	try {
-		var R = require(&#x22;react&#x22;); // we ignore this in browserify manually (see grunt file), so it&#x27;s more of a doublecheck
+		var R = require("react"); // we ignore this in browserify manually (see grunt file), so it's more of a doublecheck
  for in node
 		Reflux.defineReact(R);
 	} catch (e) {}
@@ -7579,16 +7572,16 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">initStore = function (str) {
 		var storeId = str.id;
-		// if they&#x27;re initializing something twice then we&#x27;re done already, return it
+		// if they're initializing something twice then we're done already, return it
 		if (str.singleton) {
 			return str.singleton;
 		}
-		// if no id then it&#x27;s easy: just make new instance and set to singleton
+		// if no id then it's easy: just make new instance and set to singleton
 		if (!storeId) {
 			str.singleton = new str();
 			return str.singleton;
 		}
-		// create the singleton and assign it to the class&#x27;s singleton static property
+		// create the singleton and assign it to the class's singleton static property
 		var inst = str.singleton = new str();
 		// store it on the Reflux.stores array to be accessible later
 		Reflux.stores[storeId] = inst;
@@ -7629,7 +7622,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -7654,7 +7647,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -7679,7 +7672,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -7704,7 +7697,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     var listenables = slice.call(arguments);
     return (0, _createStore.createStore)({
         init: function init() {
-            this[strategyMethodNames[strategy]].apply(this, listenables.concat(&#x22;triggerAsync&#x22;));
+            this[strategyMethodNames[strategy]].apply(this, listenables.concat("triggerAsync"));
         }
     });
 }</pre></li>
@@ -7727,26 +7720,26 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">karma_conf = function (config) {
     config.set({
-        logLevel: &#x27;LOG_DEBUG&#x27;,
+        logLevel: 'LOG_DEBUG',
 
-        reporters: [&#x27;spec&#x27;],
+        reporters: ['spec'],
 
         singleRun : true,
         autoWatch : false,
 
         frameworks: [
-            &#x27;mocha&#x27;,
-            &#x27;browserify&#x27;
+            'mocha',
+            'browserify'
         ],
 
         files: [
-            &#x27;test/shims/phantomjs-shims.js&#x27;,
-            &#x27;test/*.spec.js&#x27;
+            'test/shims/phantomjs-shims.js',
+            'test/*.spec.js'
         ],
 
         preprocessors: {
-            &#x27;test/shims/phantomjs-shims.js&#x27;: [&#x27;browserify&#x27;],
-            &#x27;test/*.spec.js&#x27;: [&#x27;browserify&#x27;]
+            'test/shims/phantomjs-shims.js': ['browserify'],
+            'test/*.spec.js': ['browserify']
         },
 
         browserify: {
@@ -7781,7 +7774,7 @@ if (typeof React !== &#x27;undefined&#x27; &#x26;&#x26; React) {
             for(var m in ListenerMethods){
                 if (this[m] !== ListenerMethods[m]){
                     if (this[m]){
-                        throw &#x22;Can&#x27;t have other property &#x27;&#x22;+m+&#x22;&#x27; when using Reflux.listenTo!&#x22;;
+                        throw "Can't have other property '"+m+"' when using Reflux.listenTo!";
                     }
                     this[m] = ListenerMethods[m];
                 }
@@ -7801,13 +7794,13 @@ class StatusStore extends Reflux.Store
 constructor()
 {
     super();
-    this.state = {flag:&#x27;OFFLINE&#x27;}; // &#x3c;- set store&#x27;s default state much like in React
+    this.state = {flag:'OFFLINE'}; // &lt;- set store's default state much like in React
     this.<span class="apidocCodeKeywordSpan">listenTo</span>(statusUpdate, this.onStatusUpdate); // listen to the statusUpdate action
 }
 
 onStatusUpdate(status)
 {
-    var newFlag = status ? &#x27;ONLINE&#x27; : &#x27;OFFLINE&#x27;;
+    var newFlag = status ? 'ONLINE' : 'OFFLINE';
     this.setState({flag:newFlag});
 }
 ...</pre></li>
@@ -7837,7 +7830,7 @@ onStatusUpdate(status)
             for(var m in ListenerMethods){
                 if (this[m] !== ListenerMethods[m]){
                     if (this[m]){
-                        throw &#x22;Can&#x27;t have other property &#x27;&#x22;+m+&#x22;&#x27; when using Reflux.listenToMany!&#x22;;
+                        throw "Can't have other property '"+m+"' when using Reflux.listenToMany!";
                     }
                     this[m] = ListenerMethods[m];
                 }
@@ -7967,7 +7960,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function callbackName(string, prefix) {
-    prefix = prefix || &#x22;on&#x22;;
+    prefix = prefix || "on";
     return prefix + exports.capitalize(string);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -8002,12 +7995,12 @@ onStatusUpdate(status)
         return obj;
     }
     var source, keys, prop;
-    for (var i = 1, length = arguments.length; i &#x3c; length; i++) {
+    for (var i = 1, length = arguments.length; i &lt; length; i++) {
         source = arguments[i];
         keys = Object.keys(source);
-        for (var j = 0; j &#x3c; keys.length; j++) {
+        for (var j = 0; j &lt; keys.length; j++) {
             prop = keys[j];
-            if (Object.getOwnPropertyDescriptor &#x26;&#x26; Object.defineProperty) {
+            if (Object.getOwnPropertyDescriptor &amp;&amp; Object.defineProperty) {
                 var propertyDescriptor = Object.getOwnPropertyDescriptor(source, prop);
                 Object.defineProperty(obj, prop, propertyDescriptor);
             } else {
@@ -8030,10 +8023,10 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">inherits = function (subClass, superClass) {
-	if (typeof superClass !== &#x22;function&#x22; &#x26;&#x26; superClass !== null) {
-		throw new TypeError(&#x22;Super expression must either be null or a function, not &#x22; + typeof superClass);
+	if (typeof superClass !== "function" &amp;&amp; superClass !== null) {
+		throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
 	}
-	subClass.prototype = Object.create(superClass &#x26;&#x26; superClass.prototype, {
+	subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, {
 		constructor: {
 			value: subClass,
 			enumerable: false,
@@ -8063,8 +8056,8 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isArguments(value) {
-    return (typeof value === &#x22;undefined&#x22; ? &#x22;undefined&#x22; : _typeof(value)) === &#x22;object&#x22; &#x26;&#x26; &#x22;callee&#x22; in value &#x26;&#x26; typeof value.length
- === &#x22;number&#x22;;
+    return (typeof value === "undefined" ? "undefined" : _typeof(value)) === "object" &amp;&amp; "callee" in value &amp;&amp; typeof value.length
+ === "number";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8079,7 +8072,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isFunction(value) {
-    return typeof value === &#x22;function&#x22;;
+    return typeof value === "function";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8094,8 +8087,8 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isObject(obj) {
-    var type = typeof obj === &#x22;undefined&#x22; ? &#x22;undefined&#x22; : _typeof(obj);
-    return type === &#x22;function&#x22; || type === &#x22;object&#x22; &#x26;&#x26; !!obj;
+    var type = typeof obj === "undefined" ? "undefined" : _typeof(obj);
+    return type === "function" || type === "object" &amp;&amp; !!obj;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8127,7 +8120,7 @@ onStatusUpdate(status)
     <li>description and source-code<pre class="apidocCodePre">function object(keys, vals) {
     var o = {},
         i = 0;
-    for (; i &#x3c; keys.length; i++) {
+    for (; i &lt; keys.length; i++) {
         o[keys[i]] = vals[i];
     }
     return o;
@@ -8223,7 +8216,7 @@ onStatusUpdate(status)
     , args
     , i;
 
-  if (&#x27;function&#x27; === typeof listeners.fn) {
+  if ('function' === typeof listeners.fn) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
@@ -8235,7 +8228,7 @@ onStatusUpdate(status)
       case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
     }
 
-    for (i = 1, args = new Array(len -1); i &#x3c; len; i++) {
+    for (i = 1, args = new Array(len -1); i &lt; len; i++) {
       args[i - 1] = arguments[i];
     }
 
@@ -8244,7 +8237,7 @@ onStatusUpdate(status)
     var length = listeners.length
       , j;
 
-    for (i = 0; i &#x3c; length; i++) {
+    for (i = 0; i &lt; length; i++) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
@@ -8252,7 +8245,7 @@ onStatusUpdate(status)
         case 2: listeners[i].fn.call(listeners[i].context, a1); break;
         case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
         default:
-          if (!args) for (j = 1, args = new Array(len -1); j &#x3c; len; j++) {
+          if (!args) for (j = 1, args = new Array(len -1); j &lt; len; j++) {
             args[j - 1] = arguments[j];
           }
 
@@ -8306,13 +8299,13 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function listeners(event, exists) {
   var evt = prefix ? prefix + event : event
-    , available = this._events &#x26;&#x26; this._events[evt];
+    , available = this._events &amp;&amp; this._events[evt];
 
   if (exists) return !!available;
   if (!available) return [];
   if (available.fn) return [available.fn];
 
-  for (var i = 0, l = available.length, ee = new Array(l); i &#x3c; l; i++) {
+  for (var i = 0, l = available.length, ee = new Array(l); i &lt; l; i++) {
     ee[i] = available[i].fn;
   }
 
@@ -8342,17 +8335,17 @@ onStatusUpdate(status)
     if (listeners.fn) {
       if (
            listeners.fn !== fn
-        || (once &#x26;&#x26; !listeners.once)
-        || (context &#x26;&#x26; listeners.context !== context)
+        || (once &amp;&amp; !listeners.once)
+        || (context &amp;&amp; listeners.context !== context)
       ) {
         events.push(listeners);
       }
     } else {
-      for (var i = 0, length = listeners.length; i &#x3c; length; i++) {
+      for (var i = 0, length = listeners.length; i &lt; length; i++) {
         if (
              listeners[i].fn !== fn
-          || (once &#x26;&#x26; !listeners[i].once)
-          || (context &#x26;&#x26; listeners[i].context !== context)
+          || (once &amp;&amp; !listeners[i].once)
+          || (context &amp;&amp; listeners[i].context !== context)
         ) {
           events.push(listeners[i]);
         }
@@ -8469,17 +8462,17 @@ onStatusUpdate(status)
     if (listeners.fn) {
       if (
            listeners.fn !== fn
-        || (once &#x26;&#x26; !listeners.once)
-        || (context &#x26;&#x26; listeners.context !== context)
+        || (once &amp;&amp; !listeners.once)
+        || (context &amp;&amp; listeners.context !== context)
       ) {
         events.push(listeners);
       }
     } else {
-      for (var i = 0, length = listeners.length; i &#x3c; length; i++) {
+      for (var i = 0, length = listeners.length; i &lt; length; i++) {
         if (
              listeners[i].fn !== fn
-          || (once &#x26;&#x26; !listeners[i].once)
-          || (context &#x26;&#x26; listeners[i].context !== context)
+          || (once &amp;&amp; !listeners[i].once)
+          || (context &amp;&amp; listeners[i].context !== context)
         ) {
           events.push(listeners[i]);
         }
@@ -8540,7 +8533,7 @@ onStatusUpdate(status)
     , args
     , i;
 
-  if (&#x27;function&#x27; === typeof listeners.fn) {
+  if ('function' === typeof listeners.fn) {
     if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
@@ -8552,7 +8545,7 @@ onStatusUpdate(status)
       case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
     }
 
-    for (i = 1, args = new Array(len -1); i &#x3c; len; i++) {
+    for (i = 1, args = new Array(len -1); i &lt; len; i++) {
       args[i - 1] = arguments[i];
     }
 
@@ -8561,7 +8554,7 @@ onStatusUpdate(status)
     var length = listeners.length
       , j;
 
-    for (i = 0; i &#x3c; length; i++) {
+    for (i = 0; i &lt; length; i++) {
       if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
@@ -8569,7 +8562,7 @@ onStatusUpdate(status)
         case 2: listeners[i].fn.call(listeners[i].context, a1); break;
         case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
         default:
-          if (!args) for (j = 1, args = new Array(len -1); j &#x3c; len; j++) {
+          if (!args) for (j = 1, args = new Array(len -1); j &lt; len; j++) {
             args[j - 1] = arguments[j];
           }
 
@@ -8633,13 +8626,13 @@ onStatusUpdate(status)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function listeners(event, exists) {
   var evt = prefix ? prefix + event : event
-    , available = this._events &#x26;&#x26; this._events[evt];
+    , available = this._events &amp;&amp; this._events[evt];
 
   if (exists) return !!available;
   if (!available) return [];
   if (available.fn) return [available.fn];
 
-  for (var i = 0, l = available.length, ee = new Array(l); i &#x3c; l; i++) {
+  for (var i = 0, l = available.length, ee = new Array(l); i &lt; l; i++) {
     ee[i] = available[i].fn;
   }
 
@@ -8763,17 +8756,17 @@ onStatusUpdate(status)
     if (listeners.fn) {
       if (
            listeners.fn !== fn
-        || (once &#x26;&#x26; !listeners.once)
-        || (context &#x26;&#x26; listeners.context !== context)
+        || (once &amp;&amp; !listeners.once)
+        || (context &amp;&amp; listeners.context !== context)
       ) {
         events.push(listeners);
       }
     } else {
-      for (var i = 0, length = listeners.length; i &#x3c; length; i++) {
+      for (var i = 0, length = listeners.length; i &lt; length; i++) {
         if (
              listeners[i].fn !== fn
-          || (once &#x26;&#x26; !listeners[i].once)
-          || (context &#x26;&#x26; listeners[i].context !== context)
+          || (once &amp;&amp; !listeners[i].once)
+          || (context &amp;&amp; listeners[i].context !== context)
         ) {
           events.push(listeners[i]);
         }
@@ -8830,7 +8823,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function callbackName(string, prefix) {
-    prefix = prefix || &#x22;on&#x22;;
+    prefix = prefix || "on";
     return prefix + exports.capitalize(string);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -8875,12 +8868,12 @@ onStatusUpdate(status)
         return obj;
     }
     var source, keys, prop;
-    for (var i = 1, length = arguments.length; i &#x3c; length; i++) {
+    for (var i = 1, length = arguments.length; i &lt; length; i++) {
         source = arguments[i];
         keys = Object.keys(source);
-        for (var j = 0; j &#x3c; keys.length; j++) {
+        for (var j = 0; j &lt; keys.length; j++) {
             prop = keys[j];
-            if (Object.getOwnPropertyDescriptor &#x26;&#x26; Object.defineProperty) {
+            if (Object.getOwnPropertyDescriptor &amp;&amp; Object.defineProperty) {
                 var propertyDescriptor = Object.getOwnPropertyDescriptor(source, prop);
                 Object.defineProperty(obj, prop, propertyDescriptor);
             } else {
@@ -8908,10 +8901,10 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">inherits = function (subClass, superClass) {
-	if (typeof superClass !== &#x22;function&#x22; &#x26;&#x26; superClass !== null) {
-		throw new TypeError(&#x22;Super expression must either be null or a function, not &#x22; + typeof superClass);
+	if (typeof superClass !== "function" &amp;&amp; superClass !== null) {
+		throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
 	}
-	subClass.prototype = Object.create(superClass &#x26;&#x26; superClass.prototype, {
+	subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, {
 		constructor: {
 			value: subClass,
 			enumerable: false,
@@ -8946,8 +8939,8 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isArguments(value) {
-    return (typeof value === &#x22;undefined&#x22; ? &#x22;undefined&#x22; : _typeof(value)) === &#x22;object&#x22; &#x26;&#x26; &#x22;callee&#x22; in value &#x26;&#x26; typeof value.length
- === &#x22;number&#x22;;
+    return (typeof value === "undefined" ? "undefined" : _typeof(value)) === "object" &amp;&amp; "callee" in value &amp;&amp; typeof value.length
+ === "number";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8967,7 +8960,7 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isFunction(value) {
-    return typeof value === &#x22;function&#x22;;
+    return typeof value === "function";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8987,8 +8980,8 @@ onStatusUpdate(status)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isObject(obj) {
-    var type = typeof obj === &#x22;undefined&#x22; ? &#x22;undefined&#x22; : _typeof(obj);
-    return type === &#x22;function&#x22; || type === &#x22;object&#x22; &#x26;&#x26; !!obj;
+    var type = typeof obj === "undefined" ? "undefined" : _typeof(obj);
+    return type === "function" || type === "object" &amp;&amp; !!obj;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -9030,7 +9023,7 @@ onStatusUpdate(status)
     <li>description and source-code<pre class="apidocCodePre">function object(keys, vals) {
     var o = {},
         i = 0;
-    for (; i &#x3c; keys.length; i++) {
+    for (; i &lt; keys.length; i++) {
         o[keys[i]] = vals[i];
     }
     return o;
@@ -9069,3 +9062,4 @@ onStatusUpdate(status)
     ]
 </div>
 </div>
+</body></html>
