@@ -1,6 +1,6 @@
 # npmdoc-reflux
 
-#### api documentation for  [reflux (v6.4.1)](https://github.com/reflux/refluxjs#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-reflux.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-reflux) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-reflux.svg)](https://travis-ci.org/npmdoc/node-npmdoc-reflux)
+#### basic api documentation for  [reflux (v6.4.1)](https://github.com/reflux/refluxjs#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-reflux.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-reflux) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-reflux.svg)](https://travis-ci.org/npmdoc/node-npmdoc-reflux)
 
 #### A simple library for uni-directional dataflow application architecture inspired by ReactJS Flux
 
@@ -104,7 +104,8 @@
         "test": "grunt test",
         "test:sauce": "grunt karma:sauce"
     },
-    "version": "6.4.1"
+    "version": "6.4.1",
+    "bin": {}
 }
 ```
 
